@@ -1,6 +1,6 @@
 // UI-model for a ToDo application
 
-uim={
+var uim = {
   id: 'todo',
   title: 'To Do',
   singular: 'task',
