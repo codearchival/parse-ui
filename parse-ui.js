@@ -53,8 +53,9 @@ function viewList(){
     success: function(results) {
       curObjectList = results;
       var h,
+        cObj,
         fnField = function(f, idx){
-          var v=object.get(f.id);
+          var v=cObj.get(f.id);
           if(f.type==='date' && v){
             v=v.toISOString();
             v=v.substring(5, 7)+'/'+v.substring(8, 10)+'/'+v.substring(0, 4);
@@ -65,12 +66,13 @@ function viewList(){
               v=f.hList[v];
             }
           }else{
-            v=v?escape(v):'';
+            v=cObj.escape(f.id);
+            v=v?v:'';
           }
           if(idx>0){
             h+='<td>'+v+'</td>';
           }else{
-            h+='<td><a href="javascript:showItem(\''+object.id+'\')">'+v+'</a></td>';
+            h+='<td><a href="javascript:showItem(\''+cObj.id+'\')">'+v+'</a></td>';
           }
         };
       if(results.length){
@@ -86,7 +88,7 @@ function viewList(){
         });
         h+='</tr>';
         for (var i = 0; i < results.length; i++) {
-          var object = results[i];
+          cObj = results[i];
           h+='<tr>';
           columns.forEach(fnField);
           h+='</tr>';
