@@ -111,7 +111,7 @@ function viewEdit(){
   cId=null;
   var h='<table class="edit-form">';
   uim.fields.forEach(function(f){
-    h+='<tr><th class="col1">'+f.label+'</th><td class="col2">'+htmlField(f)+'</td></tr>';
+    h+='<tr><th class="col1 control-label">'+f.label+(f.required?'<span class="required">*</span>':'')+'</th><td class="col2">'+htmlField(f)+'</td></tr>';
   });
   h+='<tr><td></td><td><button class="btn btn-primary">Save</button><button class="btn btn-secondary">Cancel</button></td></tr>';
   h+='</table>';
@@ -135,24 +135,39 @@ function showItem(id){
 }
 
 function saveItem(){
-  if(!curObject){ // insert
-    curObject = new objectClass();
-    curObject.save(getData(), {
-      success: function(d) {
-        curObject=d;
-        showMsg('success', 'New '+uim.singular+' was saved.');
-        $('#m-delete').show();
-      },
-      error: showError
-    });
-  }else{ // update
-    curObject.set(getData()).save({
-      success: function(d){
-        curObject=d;
-        showMsg('success', capitalize(uim.singular)+' was updated.');
-      },
-      error: showError
-    });
+  var d=getData(),
+    bads=[],
+    fieldRows=$('.edit-form tr');
+  fieldRows.removeClass('has-error');
+  uim.fields.forEach(function(f, idx){
+    if(f.required && !d[f.id]){
+      fieldRows.eq(idx).addClass('has-error');
+      bads.push(f.label);
+    }
+  });
+  if(bads.length){
+    showMsg('danger', bads.join(', ')+' must have a value.');
+  }else{
+    showMsg(null);
+    if(!curObject){ // insert
+      curObject = new objectClass();
+      curObject.save(d, {
+        success: function(d) {
+          curObject=d;
+          showMsg('success', 'New '+uim.singular+' was saved.');
+          $('#m-delete').show();
+        },
+        error: showError
+      });
+    }else{ // update
+      curObject.set(d).save({
+        success: function(d){
+          curObject=d;
+          showMsg('success', capitalize(uim.singular)+' was updated.');
+        },
+        error: showError
+      });
+    }
   }
 }
 

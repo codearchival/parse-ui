@@ -17,6 +17,11 @@
 button{
 	margin-right: 10px;
 }
+.required{
+	color: #b94a48;
+	margin-left: 3px;
+	font-weight: bold;
+}
 
 .table th{
 	cursor: pointer;
