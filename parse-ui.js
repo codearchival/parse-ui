@@ -52,7 +52,27 @@ function viewList(){
   query.find({
     success: function(results) {
       curObjectList = results;
-      var h;
+      var h,
+        fnField = function(f, idx){
+          var v=object.get(f.id);
+          if(f.type==='date' && v){
+            v=v.toISOString();
+            v=v.substring(5, 7)+'/'+v.substring(8, 10)+'/'+v.substring(0, 4);
+          }else if(f.type==='boolean'){
+            v=v?'<i class="glyphicon glyphicon-ok"></i>':'';
+          }else if(f.type==='list'){
+            if(v){
+              v=f.hList[v];
+            }
+          }else{
+            v=v?escape(v):'';
+          }
+          if(idx>0){
+            h+='<td>'+v+'</td>';
+          }else{
+            h+='<td><a href="javascript:showItem(\''+object.id+'\')">'+v+'</a></td>';
+          }
+        };
       if(results.length){
         var columns=uim.fields.filter(function(f){
           return f.inList;
@@ -68,26 +88,7 @@ function viewList(){
         for (var i = 0; i < results.length; i++) {
           var object = results[i];
           h+='<tr>';
-          columns.forEach(function(f, idx){
-            var v=object.get(f.id);
-            if(f.type==='date' && v){
-              v=v.toISOString();
-              v=v.substring(5, 7)+'/'+v.substring(8, 10)+'/'+v.substring(0, 4);
-            }else if(f.type==='boolean'){
-              v=v?'<i class="glyphicon glyphicon-ok"></i>':'';
-            }else if(f.type==='list'){
-              if(v){
-                v=f.hList[v];
-              }
-            }else{
-              v=v?v:'';
-            }
-            if(idx>0){
-              h+='<td>'+v+'</td>';
-            }else{
-              h+='<td><a href="javascript:showItem(\''+object.id+'\')">'+v+'</a></td>';
-            }
-          });
+          columns.forEach(fnField);
           h+='</tr>';
         }
         h+='</table>';
