@@ -1,4 +1,5 @@
 // UI-model for a ToDo application
+// https://github.com/evoluteur/parse-ui
 
 var uim = {
   id: 'todo',

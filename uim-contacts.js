@@ -1,4 +1,5 @@
 // UI-model for an Addressbook application
+// https://github.com/evoluteur/parse-ui
 
 var uim = {
   id: 'contact',

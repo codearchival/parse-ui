@@ -4,8 +4,8 @@
  *
  * Model-driven UI for Parse.com.
  *
- * https://github.com/evoluteur/Parse-UI
- * Copyright (c) 2015, Olivier Giulieri
+ * https://github.com/evoluteur/parse-ui
+ * Copyright (c) 2016, Olivier Giulieri
  *
  *************************************************************************** */
 
