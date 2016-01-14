@@ -5,15 +5,15 @@ Parse-UI is a simple model-driven UI for Parse.com. With it you can build CRUD a
 
 ## ToDo App
 
-1- Download or fork the Parse-UI project on GitHub.
-2- Change the Parse.com application key (at the beginning of "parse-ui.js").
-3- Load the index.html page in your browser.
+* 1 - Download or fork the Parse-UI project on GitHub.
+* 2 - Change the Parse.com application key (at the beginning of "parse-ui.js").
+* 3 - Load the index.html page in your browser.
 
 
 ## Addressbook App
 
-1- In index.html, change the script file "uim-todo.js" to "uim-contacts.js".
-2- Refresh the page in your browser.
+* 1 - In index.html, change the script file "uim-todo.js" to "uim-contacts.js".
+* 2 - Refresh the page in your browser.
 
 
 ## Any other App
